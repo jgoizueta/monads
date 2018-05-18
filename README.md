@@ -76,7 +76,7 @@ as:
 
 By rule [B] above, if inner functions don't use outer variables (e.g. step3 does not use v1) then (A) and (B) forms will have the same effect (except that form A can be more economical of function evaluations/calls) and this allows, in languages such as Ruby, to convert function nesting to chaining:
 
-Example in Ruby notation
+### Example in Ruby notation
 
     # (A) => nesting
     step1.bind ->(v1) {
@@ -88,9 +88,9 @@ Example in Ruby notation
     # (B) => chaining
     step1.bind ->(v1) {
       step2(v1)
-      }.bind ->(v2) {
+    }.bind ->(v2) {
         step3(v2)
-      }
+    }
 
 But when outer variables are used in inner levels this is not possible;
 e.g. using the Array monad to compute a cartesian product, in Haskell:
@@ -107,6 +107,19 @@ With:
 
 In Ruby this would be: `xs.bind { |x| ys.bind { |y| [[x,y]] } }`
 With: `class Array; def bind(&f) map(&f).inject(&:+) end; end`
+
+### ES6 Examples
+
+Using JavaScript promises the above example would be:
+(we assume step1 is a Promise and step2, step3 regular functions)
+
+```javascript
+// (A) => nesting
+step1.then(v1 => step2(v1).then(v2 => step3(v1,v2)))
+
+// (B) => chaining
+step1.then(step2).then(step3)
+```
 
 ## Nomenclature
 
@@ -131,7 +144,7 @@ The same applies to monads for error/exception management, IORefs, etc.
 
 But other monads can be useful in other languages.
 
-*  Maybe or Optional
+* Maybe or Optional
 * Array or Many or Multiple
 
 # Resources
@@ -173,7 +186,7 @@ http://homepages.inf.ed.ac.uk/wadler/topics/monads.html
 * Hal Daumé III Haskell Tutorial
   http://www.umiacs.umd.edu/~hal/docs/daume02yaht.pdf
   Chapter 5 Basic Input/Output (pg57)
-  8.4.2 Computations (pg109)  
+  8.4.2 Computations (pg109)
   Chapter 9 Monads (pg119)
 
 * IO Inside
@@ -264,6 +277,8 @@ Monads can be used to refactor the typical deeply nested code in NodeJS
 * ContT in monadic: https://www.npmjs.org/package/monadic
 * https://blog.jcoglan.com/2011/03/11/promises-are-the-monad-of-asynchronous-programming/
 
+ES6 Promises can be considered a form of monads that handle asynchronicity using the concept of *futures*. The `then` method of Promises is the equivalent of the bind operation.
+
 ### More examples
 
 * http://www.jayway.com/2013/12/22/improving-your-functional-coffeescript-and-javascript/
@@ -291,3 +306,123 @@ Monads can be used to refactor the typical deeply nested code in NodeJS
 * http://monadsjl.readthedocs.org/en/latest/
 * https://github.com/pao/Monads.jl
 * https://groups.google.com/forum/#!topic/julia-dev/K0K_6vVTpYY
+
+# ...
+
+There's to issues with procedural computations represented with functional languages that Monads solve:
+* The order of execution of computation steps vs their code representation
+* The nesting of computation steps (pyramids of doom)
+
+## Order of execution
+
+Let's assume we have some computation steps `f1`, `f2`, `f3`, with all state being passed trhough arguments/return values between them.
+
+The order of execution `f1`, `f2`, `f3` is reverse in the most common functional notation (e.g. in JavaScript): `f3(f2(f1(x)))`.
+
+In Haskell, we have  `f1 f2 f3 x` meaning `((f1 f2) f3) x`.
+Then, if `f2`, `f3` take "value" (state) arguments we'd write `f3 (f2 (f1 x))` for our computation, but if `f2`, `f3` take function arguments (and compose them) we can write just `f1 f2 f3 x`.
+
+Since this is the approach of monads (`>>=` takes a right function argument and composes it ), we can express sequential computation as `f1 >>= f2 >>= f3`.
+
+What about other languages, e.g. Javascript?
+We'll try to write functional code, avoiding local variables, otherwise we'd write something like so:
+
+```javascript
+let x1 = f1(x)
+let x2 = f2(x1)
+let x3 = f3(x2)
+```
+
+If we have regular functions to represent the steps:
+
+```javascript
+const f1 = x => x+1
+const f2 = x => x*2
+const f3 = x => x-1
+const Id = x => Promise.resolve(x)
+```
+
+We intend to compute `f3(f2(f1(x)))` (i.e. `(x+1)*2-1`) but avoiding the reverse order appearance of the steps.
+
+We can simply use Promises, a kind of monads to rewrite the computation:
+```javascript
+Id(x).then(f1).then(f2).then(f3)
+```
+
+We could also avoid Promises and rewrite the computation steps in a way that allows the desired ordered composability:
+
+```javascript
+const f1 = g => (x => g(x+1))
+const f2 = g => (x => g(x*2))
+const f3 = g => (x => g(x-1))
+const Id = x => x
+```
+
+Now our computation becomes:
+
+```javascript
+f1(f2(f3(Id)))(x)
+```
+
+## Nesting
+
+But unlike what happens in Haskell, this approach here doen't solve the other problem,
+that of function nesting because of the delimiters problem discussed above.
+The nesting problem arises when all the necessary state is not provided in a single argument/return value. The Promises and the composable functions approach described allow for nesting as well as chaining, but nesting can be inconvenient due to the syntax.
+
+For example if we need multiple arguments to compose a result, which come from different previous steps:
+
+```javascript
+const f1 = v => v*2
+const f2 = v => v*3
+const f3 = (x,y) => [x,y]
+const Id = v => v
+```
+
+The desired computation, in procedural form, is:
+```javascript
+v => {
+  let x = f1(v);
+  let y = f2(x);
+  return f3(x,y);
+}
+```
+Which can be written with Promises (in nested form):
+
+```javascript
+v => Id(v).then(f1).then(
+  x => Id(f2(x)).then(y => f3(x,y))
+);
+```
+
+We can avoid promises by rewriting the steps:
+
+```javascript
+const f1 = g => (v => g(v*2))
+const f2 = g => (v => g(v*3))
+const f3 = (x, y) => [x,y]
+const Id = v => v
+```
+
+Then the computation become (again, nested):
+```javascript
+v => f1(x => f2(y => f3(x,y))(x))(v)
+```
+
+Note that nesting is needed because each step requires results from previous steps;
+if multiple results are needed for a step but there's no depency between those results, nesting can be avoided:
+
+```javascript
+// f2 requires results from f1a and f2b, but f1a and f1b are independent
+const f2 = (x, y) => [x, y]
+const f1a = x => 2*x
+const f1b = y => 3*y
+const Id = v => Promise.resolve(v)
+```
+
+The desired computation is `f2(f1a(x), f2b(y))` and can be resolved with promises as:
+```javascript
+(x,y) => {
+  Promise.all([Id(x).then(f1a), Id(y).then(f1b)]).then([x,y] => f2(x,y))
+}
+```
