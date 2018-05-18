@@ -307,7 +307,7 @@ ES6 Promises can be considered a form of monads that handle asynchronicity using
 * https://github.com/pao/Monads.jl
 * https://groups.google.com/forum/#!topic/julia-dev/K0K_6vVTpYY
 
-# ...
+# Order and Nesting
 
 There's to issues with procedural computations represented with functional languages that Monads solve:
 * The order of execution of computation steps vs their code representation
