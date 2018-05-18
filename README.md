@@ -102,7 +102,7 @@ or in do notation: `do x <- xs y <- ys; return (x, y)`
 With:
 
     instance Monad [] where
-    m >>= f 0 concat(map f m)
+    m >>= f = concat(map f m)
     return x = [x]
 
 In Ruby this would be: `xs.bind { |x| ys.bind { |y| [[x,y]] } }`
