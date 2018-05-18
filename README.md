@@ -163,31 +163,30 @@ http://homepages.inf.ed.ac.uk/wadler/topics/monads.html
 
 ## Presentations by Simon Peyton Jones
 
-* 1993 - Imperative Functional Programming - Simon L. Peyton Jones,
-  Philip Wadler
-  http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.53.2504
-  how they're used in Haskell and how they solve the I/O problem in a
-  pure (& lazy)
+* 1993 - Imperative Functional Programming - Simon L. Peyton Jones, Philip Wadler
+  + http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.53.2504
+  + how they're used in Haskell and how they solve the I/O problem in a pure (& lazy)
 
 * 2000 (revised 2010) - Tackling the awkward squad - Simon Peyton Jones
-  http://research.microsoft.com/en-us/um/people/simonpj/papers/marktoberdorf/
-  Great presentation of how monads are used in Haskell to solve I/O,
-  concurrency, exceptions, etc.
+  + http://research.microsoft.com/en-us/um/people/simonpj/papers/marktoberdorf/
+  + Great presentation of how monads are used in Haskell to solve I/O,
+    concurrency, exceptions, etc.
 
 ## Interesting references
 
 * Haskell 98 Report
-  https://www.haskell.org/onlinereport/ https://www.haskell.org/definition/haskell98-report.pdf
-  3.14 Do Expressions (pg26); 6.3.6 The Modad Class (pg88)
+  + https://www.haskell.org/onlinereport/
+  + https://www.haskell.org/definition/haskell98-report.pdf
+  + 3.14 Do Expressions (pg26); 6.3.6 The Modad Class (pg88)
 
 * Wikipedia:
   http://en.wikipedia.org/wiki/Monad_(functional_programming)
 
 * Hal Daumé III Haskell Tutorial
-  http://www.umiacs.umd.edu/~hal/docs/daume02yaht.pdf
-  Chapter 5 Basic Input/Output (pg57)
-  8.4.2 Computations (pg109)
-  Chapter 9 Monads (pg119)
+  + http://www.umiacs.umd.edu/~hal/docs/daume02yaht.pdf
+  + Chapter 5 Basic Input/Output (pg57)
+  + 8.4.2 Computations (pg109)
+  + Chapter 9 Monads (pg119)
 
 * IO Inside
   https://www.haskell.org/haskellwiki/IO_inside
@@ -207,28 +206,32 @@ http://homepages.inf.ed.ac.uk/wadler/topics/monads.html
   Monads and Gonads - Douglas Crockford - monads implemented in JavaScript; great insight
   https://www.youtube.com/watch?v=b0EF0VTs9Dc
 
-* Don't fear the Monad - Brian Beckman; basic introduction for C# programmers
-  https://www.youtube.com/watch?v=ZhuHCtR3xq8
+* Brian Beckman:
+  + Don't fear the Monad (basic introduction for C# programmers)
+    https://www.youtube.com/watch?v=ZhuHCtR3xq8
+  + Monads, Monoids, and Mort
+    https://channel9.msdn.com/Blogs/Charles/Brian-Beckman-Monads-Monoids-and-Mort
+  + The State Monad https://www.youtube.com/watch?v=XxzzJiXHOJs
 
 * Refactoring Ruby with Monads - Tom Stuart; great insight
   http://codon.com/refactoring-ruby-with-monads
 
 * Why Do Monads Matter?
-  https://cdsmith.wordpress.com/2012/04/18/why-do-monads-matter/
-  https://www.youtube.com/watch?v=3q8xYFDYLeI
+  + https://cdsmith.wordpress.com/2012/04/18/why-do-monads-matter/
+  + https://www.youtube.com/watch?v=3q8xYFDYLeI
 
 * sigfpe 2006-08
   http://blog.sigfpe.com/2006/08/you-could-have-invented-monads-and.html
 
 * Mike Vanier's Yet Another Monad Tutorial - 2010-07
-  1: http://mvanier.livejournal.com/3917.html
-  2: http://mvanier.livejournal.com/4305.html
-  3: http://mvanier.livejournal.com/4586.html
-  4: http://mvanier.livejournal.com/4647.html
-  5: http://mvanier.livejournal.com/5103.html
-  6: http://mvanier.livejournal.com/5343.html
-  7: http://mvanier.livejournal.com/5406.html
-  8: http://mvanier.livejournal.com/5846.html
+  + 1: http://mvanier.livejournal.com/3917.html
+  + 2: http://mvanier.livejournal.com/4305.html
+  + 3: http://mvanier.livejournal.com/4586.html
+  + 4: http://mvanier.livejournal.com/4647.html
+  + 5: http://mvanier.livejournal.com/5103.html
+  + 6: http://mvanier.livejournal.com/5343.html
+  + 7: http://mvanier.livejournal.com/5406.html
+  + 8: http://mvanier.livejournal.com/5846.html
 
 * Karsten Wagner 2007-02
   http://kawagner.blogspot.com.es/2007/02/understanding-monads-for-real.html
@@ -287,8 +290,9 @@ ES6 Promises can be considered a form of monads that handle asynchronicity using
 * https://github.com/mrlauer/coffee-script-monads
 
 * http://igstan.ro/posts/2011-05-02-understanding-monads-with-javascript.html
-* Douglas Crockford: https://www.youtube.com/watch?v=b0EF0VTs9Dc
-  https://github.com/douglascrockford/monad
+* Douglas Crockford:
+  + https://www.youtube.com/watch?v=b0EF0VTs9Dc
+  + https://github.com/douglascrockford/monad
 * http://stackoverflow.com/questions/20729050/implementing-monads-in-javascript
 * https://curiosity-driven.org/monads-in-javascript
 
@@ -306,6 +310,19 @@ ES6 Promises can be considered a form of monads that handle asynchronicity using
 * http://monadsjl.readthedocs.org/en/latest/
 * https://github.com/pao/Monads.jl
 * https://groups.google.com/forum/#!topic/julia-dev/K0K_6vVTpYY
+
+## EcmaScript Promise
+
+* https://gist.github.com/briancavalier/3296186
+* https://blog.jcoglan.com/2011/03/11/promises-are-the-monad-of-asynchronous-programming/
+
+## Elixir pipe notation for Ruby
+
+* http://www.akitaonrails.com/2016/02/18/elixir-pipe-operator-for-ruby-chainable-methods
+* https://github.com/akitaonrails/chainable_methods
+* https://github.com/tiagopog/piped_ruby
+* https://github.com/danielpclark/elixirize?utm_source=rubyweekly&utm_medium=email
+
 
 # Order and Nesting
 
