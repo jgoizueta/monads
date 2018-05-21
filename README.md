@@ -110,7 +110,7 @@ With: `class Array; def bind(&f) map(&f).inject(&:+) end; end`
 
 ### ES6 Examples
 
-Using JavaScript promises the above example would be:
+Using EcmaScript promises the above example would be:
 (we assume step1 is a Promise and step2, step3 regular functions)
 
 ```javascript
@@ -120,6 +120,11 @@ step1.then(v1 => step2(v1).then(v2 => step3(v1,v2)))
 // (B) => chaining
 step1.then(step2).then(step3)
 ```
+
+Note that the function passed to a Promise `then` method, unlike those passed to a Monda bind,
+needn't return a Promise, since `then`takes care of wrapping its return value into one.
+But in order to use the nesting approach (A), the function needs to return a Promise.
+In the previous (A) example, `step2` would neeed to return a `Promise`.
 
 ## Nomenclature
 
