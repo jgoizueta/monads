@@ -130,9 +130,11 @@ In the previous (A) example, `step2` would neeed to return a `Promise`.
 
 * The >> operator is usually called "then" (or flush)
 * The >>= binding combinator (composition)
-  has sometimes been called in other languages "pass", "and then"
+  has sometimes been called in other languages "pass", "and then".
 * The unit or return function may be called wrap, new (because it is a
   constructor)
+
+Note how both >> and >>= can be thought of as *sequencing* operators, since they compose sequential operations, hence the usage of the `>>` symbolism which suggets sequential flow visually.
 
 Monads allow to build computations by combining simpler computation steps.
 
@@ -226,7 +228,7 @@ http://homepages.inf.ed.ac.uk/wadler/topics/monads.html
   + https://www.youtube.com/watch?v=3q8xYFDYLeI
 
 * sigfpe 2006-08
-  http://blog.sigfpe.com/2006/08/you-could-have-invented-monads-and.html
+  + http://blog.sigfpe.com/2006/08/you-could-have-invented-monads-and.html
 
 * Mike Vanier's Yet Another Monad Tutorial - 2010-07
   + 1: http://mvanier.livejournal.com/3917.html
@@ -239,7 +241,10 @@ http://homepages.inf.ed.ac.uk/wadler/topics/monads.html
   + 8: http://mvanier.livejournal.com/5846.html
 
 * Karsten Wagner 2007-02
-  http://kawagner.blogspot.com.es/2007/02/understanding-monads-for-real.html
+  + http://kawagner.blogspot.com.es/2007/02/understanding-monads-for-real.html
+
+* Computerphile - What is a Monad?
+  + https://www.youtube.com/watch?v=t1e8gqXLbsU
 
 # Monads in other Languages
 

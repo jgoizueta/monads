@@ -30,7 +30,10 @@ puts 'type a couple of characters...'
 
 result = getc.bind { |c1| getc.bind { |c2| M.new([c1,c2]) } }
 
-puts "Result: #{result.value.inspect}"
+# puts "Result: #{result.value.inspect}"
+result.bind { |value| puts "Result: #{value.inspect}" }
+
+STDIN.gets
 
 # Example: read one character, output twice
 
