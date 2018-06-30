@@ -250,6 +250,7 @@ http://homepages.inf.ed.ac.uk/wadler/topics/monads.html
 
 ## Ruby
 
+* dry-monads idiomatic Ruby monads  https://dry-rb.org/gems/dry-monads/
 * Rumonade: a Ruby Monad Library https://github.com/ms-ati/rumonade
 * Monadic: Monads in Ruby https://github.com/pzol/monadic
 * Deterministic: successor to Monadic: https://github.com/pzol/deterministic
